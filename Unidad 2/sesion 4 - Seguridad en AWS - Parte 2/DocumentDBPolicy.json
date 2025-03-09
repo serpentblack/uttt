@@ -1,0 +1,31 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "rds:CreateDBCluster",
+                "rds:DeleteDBCluster",
+                "rds:ModifyDBCluster",
+                "rds:DescribeDBClusters",
+                "rds:CreateDBInstance",
+                "rds:DeleteDBInstance",
+                "rds:ModifyDBInstance",
+                "rds:DescribeDBInstances",
+                "rds:AddTagsToResource",
+                "rds:ListTagsForResource"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeVpcs",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeRouteTables"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

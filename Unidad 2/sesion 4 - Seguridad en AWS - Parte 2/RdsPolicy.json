@@ -1,0 +1,31 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "rds:CreateDBInstance",
+                "rds:DescribeDBInstances",
+                "rds:ModifyDBInstance",
+                "rds:DeleteDBInstance",
+                "rds:CreateDBParameterGroup",
+                "rds:DescribeDBParameterGroups",
+                "rds:ModifyDBParameterGroup",
+                "rds:DeleteDBParameterGroup",
+                "rds:CreateDBSubnetGroup",
+                "rds:DescribeDBSubnetGroups",
+                "rds:ModifyDBSubnetGroup",
+                "rds:DeleteDBSubnetGroup",
+                "rds:CreateDBSnapshot",
+                "rds:DescribeDBSnapshots",
+                "rds:DeleteDBSnapshot",
+                "ec2:AuthorizeSecurityGroupIngress",
+                "ec2:AuthorizeSecurityGroupEgress",
+                "ec2:CreateSecurityGroup",
+                "ec2:DeleteSecurityGroup",
+                "ec2:DescribeSecurityGroups"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
