@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Servidor Web Básico para AWS Academy'
+
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: 'Seleccione la VPC del laboratorio'
+  
+  SubnetId:
+    Type: AWS::EC2::Subnet::Id
+    Description: 'Seleccione una subnet pública del laboratorio'
+
+  ServerName:
+    Type: String
+    Default: webserver
+    Description: 'Nombre para identificar el servidor'
+    MinLength: 3
+    MaxLength: 15
+    AllowedPattern: '[a-zA-Z0-9-]*'
+
+Resources:
+  WebServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: 'Grupo de seguridad para servidor web'
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  WebServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0cff7528ff583bf9a
+      SubnetId: !Ref SubnetId
+      SecurityGroupIds: 
+        - !Ref WebServerSecurityGroup
+      KeyName: vockey
+      Tags:
+        - Key: Name
+          Value: !Ref ServerName
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          yum update -y
+          yum install -y httpd
+          systemctl start httpd
+          systemctl enable httpd
+          echo "<h1>Mi primer servidor web en AWS Academy</h1>" > /var/www/html/index.html
+
+Outputs:
+  WebsiteURL:
+    Description: 'URL del servidor web'
+    Value: !Sub http://${WebServer.PublicDnsName}
+  
+  SSHCommand:
+    Description: 'Comando para conectarse via SSH'
+    Value: !Sub "ssh -i labsuser.pem ec2-user@${WebServer.PublicDnsName}"
