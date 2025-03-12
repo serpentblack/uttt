@@ -1,0 +1,116 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Template para AWS Academy con diferentes tipos de parámetros y conexión SSH'
+
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: 'VPC del laboratorio'
+
+  SubnetId:
+    Type: AWS::EC2::Subnet::Id
+    Description: 'Subnet pública del laboratorio'
+
+  ApplicationName:
+    Type: String
+    Default: academy
+    MinLength: 3
+    MaxLength: 10
+    AllowedPattern: '[a-zA-Z0-9]*'
+    Description: 'Nombre de la aplicación'
+
+  Environment:
+    Type: String
+    Default: lab
+    AllowedValues: 
+      - lab
+      - practice
+    Description: 'Ambiente de laboratorio'
+
+  VolumeSize:
+    Type: Number
+    Default: 8
+    MinValue: 8
+    MaxValue: 30
+    Description: 'Tamaño del volumen en GB'
+
+Resources:
+  WebServerSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "Security group for Academy lab"
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0cff7528ff583bf9a
+      SubnetId: !Ref SubnetId
+      SecurityGroupIds: 
+        - !Ref WebServerSG
+      KeyName: vockey
+      Tags:
+        - Key: Name
+          Value: !Sub "${ApplicationName}-${Environment}"
+        - Key: Purpose
+          Value: Academy-Lab
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          yum update -y
+          yum install -y httpd
+          systemctl start httpd
+          systemctl enable httpd
+
+Outputs:
+  WebServerPublicDNS:
+    Description: 'DNS público del servidor'
+    Value: !GetAtt EC2Instance.PublicDnsName
+  
+  WebServerPublicIP:
+    Description: 'IP pública del servidor'
+    Value: !GetAtt EC2Instance.PublicIp
+
+  SSHCommand:
+    Description: 'Comando para conectarse via SSH'
+    Value: !Sub "ssh -i labsuser.pem ec2-user@${EC2Instance.PublicDnsName}"
+
+  SSHInstructions:
+    Description: 'Instrucciones Detalladas para Conexión SSH'
+    Value: |
+      INSTRUCCIONES PARA CONECTARSE VÍA SSH A TU INSTANCIA EC2:
+
+      1. IMPORTANTE - ACERCA DE LAS LLAVES:
+         - El template usa 'vockey' como nombre del key pair
+         - Pero usarás el archivo labsuser.pem para conectarte
+         
+      2. OBTENER LA LLAVE:
+         - Ve a AWS Academy
+         - Click en AWS Details
+         - Descarga labsuser.pem
+         
+      3. CONFIGURAR LA LLAVE:
+         En Linux/Mac:
+         chmod 400 labsuser.pem
+         
+         En Windows:
+         - Usa WSL y sigue los pasos de Linux, o
+         - Usa PuTTY (convierte .pem a .ppk)
+         
+      4. COMANDO SSH:
+         ssh -i labsuser.pem ec2-user@[DNS-público]
+         (El comando completo está disponible en el output SSHCommand)
+
+      5. VERIFICACIÓN:
+         - Si la conexión es exitosa, verás un prompt de ec2-user
+         - Puedes verificar con el comando: whoami
+         - Para verificar el servidor web: curl localhost
