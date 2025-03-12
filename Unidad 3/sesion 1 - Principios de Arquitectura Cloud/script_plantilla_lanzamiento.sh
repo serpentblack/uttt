@@ -1,6 +1,11 @@
 #!/bin/bash
 # Generar página web dinámica al iniciar la instancia
-cat > /var/www/html/index.html << 'EOF'
+HOSTNAME=$(hostname)
+PRIVATE_IP=$(hostname -I | awk '{print $1}')
+CREATION_DATE=$(date)
+UBUNTU_VERSION=$(lsb_release -d | cut -f2)
+
+cat > /var/www/html/index.html << EOF
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,10 +41,10 @@ cat > /var/www/html/index.html << 'EOF'
         <h1>¡Hola desde AWS Academy!</h1>
         <h2>Esta es una instancia EC2 única</h2>
         <div class="info">
-            <p><strong>Nombre del Servidor:</strong> $(hostname)</p>
-            <p><strong>Dirección IP Privada:</strong> $(hostname -I | awk '{print $1}')</p>
-            <p><strong>Fecha de Creación:</strong> $(date)</p>
-            <p><strong>Versión de Sistema:</strong> $(lsb_release -d | cut -f2)</p>
+            <p><strong>Nombre del Servidor:</strong> $HOSTNAME</p>
+            <p><strong>Dirección IP Privada:</strong> $PRIVATE_IP</p>
+            <p><strong>Fecha de Creación:</strong> $CREATION_DATE</p>
+            <p><strong>Versión de Sistema:</strong> $UBUNTU_VERSION</p>
         </div>
     </div>
 </body>
