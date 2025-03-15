@@ -1,0 +1,22 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "rds:ModifyDBParameterGroup",
+                "rds:ResetDBParameterGroup",
+                "rds:CreateDBParameterGroup",
+                "rds:DeleteDBParameterGroup",
+                "rds:DescribeDBParameterGroups",
+                "rds:DescribeDBParameters",
+                "rds:CreateDBInstanceReadReplica",
+                "rds:DescribeOptionGroups",
+                "rds:CreateOptionGroup",
+                "rds:ModifyOptionGroup",
+                "rds:DeleteOptionGroup"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
