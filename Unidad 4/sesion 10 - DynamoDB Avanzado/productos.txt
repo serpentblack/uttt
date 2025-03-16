@@ -1,0 +1,120 @@
+{
+  "CategoriaID": {
+	"S": "Electronica"
+  },
+  "ProductoID": {
+	"S": "P001"
+  },
+  "Nombre": {
+	"S": "Smartphone XYZ"
+  },
+  "Descripcion": {
+	"S": "Smartphone de última generación"
+  },
+  "Precio": {
+	"N": "799.99"
+  },
+  "Stock": {
+	"N": "50"
+  },
+  "FechaCreacion": {
+	"S": "2023-01-15"
+  }
+}
+
+
+{
+  "CategoriaID": {
+	"S": "Electronica"
+  },
+  "ProductoID": {
+	"S": "P002"
+  },
+  "Nombre": {
+	"S": "Laptop ABC"
+  },
+  "Descripcion": {
+	"S": "Laptop para profesionales"
+  },
+  "Precio": {
+	"N": "1299.99"
+  },
+  "Stock": {
+	"N": "30"
+  },
+  "FechaCreacion": {
+	"S": "2023-02-10"
+  }
+}
+
+{
+  "CategoriaID": {
+	"S": "Hogar"
+  },
+  "ProductoID": {
+	"S": "P003"
+  },
+  "Nombre": {
+	"S": "Licuadora Premium"
+  },
+  "Descripcion": {
+	"S": "Licuadora de alto rendimiento"
+  },
+  "Precio": {
+	"N": "89.99"
+  },
+  "Stock": {
+	"N": "100"
+  },
+  "FechaCreacion": {
+	"S": "2023-03-05"
+  }
+}
+
+{
+  "CategoriaID": {
+	"S": "Hogar"
+  },
+  "ProductoID": {
+	"S": "P004"
+  },
+  "Nombre": {
+	"S": "Cafetera Automática"
+  },
+  "Descripcion": {
+	"S": "Cafetera con múltiples funciones"
+  },
+  "Precio": {
+	"N": "149.99"
+  },
+  "Stock": {
+	"N": "75"
+  },
+  "FechaCreacion": {
+	"S": "2023-01-20"
+  }
+}
+
+{
+  "CategoriaID": {
+	"S": "Moda"
+  },
+  "ProductoID": {
+	"S": "P005"
+  },
+  "Nombre": {
+	"S": "Chaqueta de Cuero"
+  },
+  "Descripcion": {
+	"S": "Chaqueta para todas las estaciones"
+  },
+  "Precio": {
+	"N": "199.99"
+  },
+  "Stock": {
+	"N": "25"
+  },
+  "FechaCreacion": {
+	"S": "2023-02-28"
+  }
+}
